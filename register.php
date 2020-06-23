@@ -1,6 +1,14 @@
 <?php
-    if(isset($_POST['loginButton'])) {
-        echo "123";
+    include ("includes/classes/Account.php");
+    include ("includes/classes/Constants.php");
+    $account = new Account();
+
+    include ("includes/handlers/registerHandler.php");
+    
+    function getInputValue($name) {
+        if(isset($_POST[$name])) {
+            echo $_POST[$name];
+        }
     }
 ?>
 
@@ -29,14 +37,18 @@
         <form id="registerForm" action="register.php" method="POST">
 			<h2>Create your free account</h2>
 			<p>
+                <?php echo $account->getErrorMessage(Constants::$usernameError); ?>
 				<label for="registerUsername">Username</label>
-				<input id="registerUsername" name="registerUsername" type="text" placeholder="e.g. bartSimpson" required>
+				<input id="registerUsername" name="registerUsername" type="text" placeholder="e.g. bartSimpson" value="<?php getInputValue('registerUsername'); ?>" required>
             </p>
             <p>
+                <?php echo $account->getErrorMessage(Constants::$emailError); ?>
 				<label for="registerEmail">Email</label>
-				<input id="registerEmail" name="registerEmail" type="email" placeholder="e.g. bartSimpson@gmail.com" required>
+				<input id="registerEmail" name="registerEmail" type="email" placeholder="e.g. bartSimpson@gmail.com" value="<?php getInputValue('registerEmail'); ?>" required>
 			</p>
 			<p>
+                <?php echo $account->getErrorMessage(Constants::$passwordContainsError); ?>
+                <?php echo $account->getErrorMessage(Constants::$passwordNotMatch); ?>
 				<label for="registerPassword">Password</label>
 				<input id="registerPassword" name="registerPassword" type="password" required>
             </p>
