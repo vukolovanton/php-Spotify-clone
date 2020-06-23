@@ -1,11 +1,20 @@
+<?php
+include("includes/config.php");
 
-    <html>
-    <head>
-        <title>Welcome to Slotify!</title>
-    </head>
+    if(isset($_SESSION['userLoggedIn'])) {
+        $userLoggedIn = $_SESSION['userLoggedIn'];
+    } else {
+        header("Location: register.php");
+    }
+?>
 
-    <body>
-        Hello!
-    </body>
+<html>
+<head>
+    <title>Welcome to Slotify!</title>
+</head>
 
-    </html>
+<body>
+    Hello!
+</body>
+
+</html>

@@ -1,9 +1,25 @@
 <?php
     class Account {
         private $errorArray;
+        private $conn;
 
-        public function __construct() {
+        public function __construct($conn) {
+            $this->conn = $conn;
             $this->errorArray = array();
+        }
+
+        public function loginAccount($e, $p) {
+            $encryptedPassword = md5($p);
+
+            $query = "SELECT * FROM users WHERE email='$e' AND password='$encryptedPassword'";
+            $login_query = mysqli_query($this->conn, $query);
+
+            if(mysqli_num_rows($login_query) == 1) {
+                return true;
+            } else {
+                array_push($this->errorArray, Constants::$loginFailed);
+                return false;
+            }
         }
 
         public function registerAccount($u, $e, $p1, $p2) {
@@ -12,10 +28,26 @@
             $this->validatePasswords($p1, $p2);
 
             if(empty($this->errorArray)) {
-                return true;
+                return $this->insertUserDetails($u, $e, $p1);
             } else {
+                echo "FAILED";
                 return false;
             }
+        }
+
+        private function insertUserDetails($u, $e, $p1) {
+            $encryptedPassword = md5($p1);
+            $profilePic = Constants::$userPlaceholderPic;
+
+            $query = "INSERT INTO users (username, email, password, profilePicture) VALUES ('$u', '$e', '$encryptedPassword', '$profilePic') ";
+
+            $register_query = mysqli_query($this->conn, $query);
+
+            if(!$query) {
+                die("QUERY FAILED" . mysqli_error($register_query));
+            }
+
+            return $register_query;
         }
 
         public function getErrorMessage($error) {
@@ -30,12 +62,24 @@
                 array_push($this->errorArray, Constants::$usernameError);
                 return;
             }
+
+            $query = "SELECT username FROM users WHERE username='$u'";
+            $checkUsernameQuery = mysqli_query($this->conn, $query);
+            if(mysqli_num_rows($checkUsernameQuery) != 0) {
+                array_push($this->errorArray, Constants::$usernameTaken);
+            }
         }
         
         private function validateEmail($e) {
             if(!filter_var($e, FILTER_VALIDATE_EMAIL)) {
                 array_push($this->errorArray, Constants::$emailError);
                 return;
+            }
+
+            $query = "SELECT email FROM users WHERE username='$e'";
+            $checkEmailQuery = mysqli_query($this->conn, $query);
+            if(mysqli_num_rows($checkEmailQuery) != 0) {
+                array_push($this->errorArray, Constants::$emailTaken);
             }
          }
         
