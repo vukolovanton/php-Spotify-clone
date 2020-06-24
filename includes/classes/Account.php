@@ -30,7 +30,6 @@
             if(empty($this->errorArray)) {
                 return $this->insertUserDetails($u, $e, $p1);
             } else {
-                echo "FAILED";
                 return false;
             }
         }
