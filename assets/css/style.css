@@ -10,6 +10,12 @@ body {
     height: 100%;
 }
 
+body {
+    background-color: #181818;
+    font-size: 14px;
+    min-width: 720px;
+}
+
 a {
     text-decoration: none;
 }
@@ -182,4 +188,46 @@ a {
 
 .navItemLink:hover {
     color: #ffffff;
+}
+
+#mainViewContainer {
+    margin-left: 220px;
+    padding-bottom: 90px;
+    width: calc(100% - 220px);
+}
+
+#mainContent {
+    padding: 0 20px;
+}
+
+.pageHeadingBig {
+    padding: 20px;
+    text-align: center;
+}
+
+.gridViewContainer {
+    display: flex;
+}
+
+.gridViewItem {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    width: 30%;
+    max-width: 200px;
+    min-width: 150px;
+    margin-bottom: 20px;
+}
+
+.gridViewItem img {
+    width: 100%;
+}
+
+.gridViewInfo {
+    font-weight: 300;
+    text-align: center;
+    padding: 5px 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
