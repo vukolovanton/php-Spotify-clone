@@ -37,7 +37,7 @@
                 echo "
                     <li class='trackListRow'>
                         <div class='trackCount'>
-                            <img class='play' src='assets/svg/020-play.svg'>
+                            <img class='play' src='assets/svg/020-play.svg' onclick='setTrack(" . $albumSong->getId() . ", tempPlayList, true)'>
                             <span class='trackNumber'>$i</span>
                         </div>
 
@@ -55,6 +55,13 @@
                 $i++;
             }
         ?>
+
+        <script>
+            let tempSongIds = '<?php echo json_encode($songIdArray); ?>'
+            console.log(tempSongIds, 'tempSongIds')
+
+            tempPlayList = JSON.parse(tempSongIds);
+        </script>
     </ul>
 </div>
 
