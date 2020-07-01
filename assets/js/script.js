@@ -4,6 +4,7 @@ let audioElement;
 let mouseDown = false;
 let currentIndex = 0;
 let repeat = false;
+let timer;
 
 function formatTime(duration) {
     let time = Math.round(duration);
@@ -13,6 +14,20 @@ function formatTime(duration) {
     const extraZero = (seconds < 10) ? "0" : "";
     return minutes + ":" + extraZero + seconds;
 };
+
+function openPage(url) {
+    if(timer != null) {
+        clearTimeout(timer);
+    }
+
+    if(url.indexOf("?") == -1 ) {
+        url = url + "?";
+    }
+
+    let encodedUrl = encodeURI(url + "&userLoggedIn=" + userLoggedIn);
+    $("mainContent").load(encodedUrl);
+    $("body").scrollTop(0);
+}
 
 function updateTimeProgressBar(audio) {
     $(".progressTime.current").text(formatTime(audio.currentTime));

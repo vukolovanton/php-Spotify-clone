@@ -155,7 +155,7 @@
                     <img src="assets/svg/020-play.svg" alt="Play">
                 </button>
 
-                <button class="controlButton pause" title="Pause button" style="display: none;" onclick="pasuseSong()">
+                <button class="controlButton pause" title="Pause button" style="display: none;" onclick="pauseSong()">
                     <img src="assets/svg/021-pause.svg" alt="Pause">
                 </button>
 
